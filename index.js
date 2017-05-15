@@ -29,4 +29,5 @@ const handleSubmit = (e) => {
   </ul>`;
 }
 
-personForm.onsubmit = handleSubmit;
+//personForm.onsubmit = handleSubmit;
+personForm.addEventListener('submit', handleSubmit);
