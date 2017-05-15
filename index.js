@@ -1,6 +1,14 @@
 const personForm = document.querySelector('form');
 
-personForm.onsubmit = (e) => {
+const renderColor = (hairColor) => {
+  const colorDiv = document.createElement('div');
+  colorDiv.style.backgroundColor = hairColor;
+  colorDiv.style.height = '50px';
+  colorDiv.style.width = '100px';
+  return colorDiv;
+}
+
+const handleSubmit = (e) => {
   e.preventDefault();
   const form = e.target;
   const details = document.querySelector('.details');
@@ -10,22 +18,7 @@ personForm.onsubmit = (e) => {
   const age = form.age.value;
   const birthplace = form.birthplace.value;
 
-  /*const list = document.createElement('li');
-
-  const em = document.createElement('li');
-  em.innerHTML = `Name: ${personName}`;
-
-  const ageDiv = document.createElement('li');
-  ageDiv.textContent = age;
-
-  const placeDiv = document.createElement('li');
-  placeDiv.textContent = birthplace;
-  */
-
-  const colorDiv = document.createElement('div');
-  colorDiv.style.backgroundColor = hairColor;
-  colorDiv.style.height = '50px';
-  colorDiv.style.width = '100px';
+  const colorDiv = renderColor(hairColor);
 
   details.innerHTML = `
   <ul>
@@ -35,3 +28,5 @@ personForm.onsubmit = (e) => {
     <li>Birthplace: ${birthplace}</li>
   </ul>`;
 }
+
+personForm.onsubmit = handleSubmit;
