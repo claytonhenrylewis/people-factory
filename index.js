@@ -2,7 +2,7 @@ const personForm = document.querySelector('form');
 
 const renderColor = (name, value) => {
   const li = document.createElement('li');
-  li.textContent = name + ':';
+  li.textContent = `${name}:`;
   const colorDiv = document.createElement('div');
   colorDiv.style.backgroundColor = value;
   colorDiv.style.height = '50px';
@@ -13,8 +13,16 @@ const renderColor = (name, value) => {
 
 const renderText = (name, value) => {
   const li = document.createElement('li');
-  li.textContent = name + ': ' + value;
+  li.textContent = `${name}: ${value}`;
   return li;
+}
+
+const renderList = (inputs, labels) => {
+  const list = document.createElement('ul');
+  for (let i = 0; i < inputs.length; i++) {
+    list.appendChild(handleInput(inputs[i], labels[i]))
+  }
+  return list;
 }
 
 const handleInput = (input, label) => {
@@ -28,15 +36,10 @@ const handleSubmit = (e) => {
   e.preventDefault();
   const form = e.target;
   const details = document.querySelector('.details');
-  const inputs = document.querySelectorAll('input');
-  const labels = document.querySelectorAll('label');
+  const inputs = form.querySelectorAll('input');
+  const labels = form.querySelectorAll('label');
 
-  const list = document.createElement('ul');
-
-  for (let i = 0; i < inputs.length; i++) {
-    list.appendChild(handleInput(inputs[i], labels[i]))
-  }
-
+  const list = renderList(inputs, labels);
   details.appendChild(list);
 }
 
