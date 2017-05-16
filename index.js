@@ -13,15 +13,28 @@ const renderColor = (name, value) => {
 
 const renderText = (name, value) => {
   const li = document.createElement('li');
-  li.textContent = `${name}: ${value}`;
+  li.innerHTML = `${name}: ${value}`;
   return li;
 }
 
+/*
 const renderList = (inputs, labels) => {
   const list = document.createElement('ul');
   for (let i = 0; i < inputs.length; i++) {
     list.appendChild(handleInput(inputs[i], labels[i]))
   }
+  return list;
+}
+*/
+
+const renderList = (person) => {
+  const list = document.createElement('ul');
+  Array.from(person).map((input, i, formElements) => {
+    if (input.value) {
+      const li = renderText(input.name, input.value);
+      list.appendChild(li);
+    }
+  });
   return list;
 }
 
@@ -39,7 +52,7 @@ const handleSubmit = (e) => {
   const inputs = form.querySelectorAll('input');
   const labels = form.querySelectorAll('label');
 
-  const list = renderList(inputs, labels);
+  const list = renderList(form.elements);
   details.appendChild(list);
 }
 
