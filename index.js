@@ -17,9 +17,11 @@ const renderText = (name, value) => {
   return li;
 }
 
-const handleInput = (label) => {
-  inputs = document.getElementsByName(label['for']);
-  console.log(label.attributes);
+const handleInput = (input, label) => {
+  if (input.type === 'color') {
+    return renderColor(label.textContent, input.value);
+  }
+  return renderText(label.textContent, input.value);
 }
 
 const handleSubmit = (e) => {
@@ -28,34 +30,14 @@ const handleSubmit = (e) => {
   const details = document.querySelector('.details');
   const inputs = document.querySelectorAll('input');
   const labels = document.querySelectorAll('label');
-  labels.forEach(handleInput);
-
-  const personName = form.personName.value;
-  const hairColor = form.hairColor.value;
-  const age = form.age.value;
-  const birthplace = form.birthplace.value;
-
-  const personDiv = renderText("Name", personName);
-  const colorDiv = renderColor("Hair Color", hairColor);
-  const ageDiv = renderText("Age", age);
-  const placeDiv = renderText("Birthplace", birthplace);
 
   const list = document.createElement('ul');
-  list.appendChild(personDiv);
-  list.appendChild(colorDiv);
-  list.appendChild(ageDiv);
-  list.appendChild(placeDiv);
+
+  for (let i = 0; i < inputs.length; i++) {
+    list.appendChild(handleInput(inputs[i], labels[i]))
+  }
 
   details.appendChild(list);
-  /*
-  details.innerHTML = `
-  <ul>
-    <li>Name: ${personName}</li>
-    <li>Hair Color: ${colorDiv.outerHTML}</li>
-    <li>Age: ${age}</li>
-    <li>Birthplace: ${birthplace}</li>
-  </ul>`;
-  */
 }
 
 personForm.addEventListener('submit', handleSubmit);
